@@ -15,13 +15,14 @@ Assignment 2:
       -then username
  5. Add comment to the first test containing today’s date
  */
-
-describe('This is first test suite', () => {
+// First test date: 29.01.24
+describe('This is first test suite, Maksim Tšekunda', () => {
     it('User can submit data only when valid mandatory values are added', () => {
+        cy.get('[data-testid="phoneNumberTestId"]').type('555666777')
+        cy.get('input[name="password"]').type('Maksim123456')
+        cy.get('[name="confirm"]').type('Maksim123456')
         cy.get('#username').type('Something')
-        cy.get('[data-testid="phoneNumberTestId"]').type('5656565656')
-        cy.get('input[name="password"]').type('Password123')
-        cy.get('[name="confirm"]').type('Password123')
+        
 
         //in order to activate submit button, user has to click somewhere outside the input field
         cy.get('h2').contains('Password').click()
@@ -42,9 +43,9 @@ describe('This is first test suite', () => {
 
     it('User can use only same both first and validation passwords', () => {
         cy.get('#username').type('johnDoe')
-        cy.get('[data-testid="phoneNumberTestId"]').type('10203040')
-        cy.get('input[name="password"]').type('Password123')
-        cy.get('[name="confirm"]').type('Password123123')
+        cy.get('[data-testid="phoneNumberTestId"]').type('555666777')
+        cy.get('input[name="password"]').type('Maksim123456')
+        cy.get('[name="confirm"]').type('Maksim123456123')
         
         // type('{enter}') is clicking native enter button from thekeyboard
         // for example, to click backspace use '{backspace}'
@@ -65,9 +66,9 @@ describe('This is first test suite', () => {
 
     it('User cannot submit data when username is absent', () => {
         cy.get('#username').type('johnDoe')
-        cy.get('[data-testid="phoneNumberTestId"]').type('10203040')
-        cy.get("input[name='password']").type('Password123')
-        cy.get('[name="confirm"]').type('Password123')
+        cy.get('[data-testid="phoneNumberTestId"]').type('555666777')
+        cy.get("input[name='password']").type('Maksim123456')
+        cy.get('[name="confirm"]').type('Maksim123456')
 
         // Scroll back to username input field
         cy.get('#username').scrollIntoView()
