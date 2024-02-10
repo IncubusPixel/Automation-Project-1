@@ -14,7 +14,53 @@ Task list:
     * checkboxes, their content and links
     * email format
  */
+describe('Section 1: Visual tests for registration form 3', () => {
+    it('Check that radio button list is correct', () => {
+        cy.get('input[type="radio"]').should('have.length', 4)
+        cy.get('input[type="radio"]').next().eq(0).should('have.text','Daily')
+        cy.get('input[type="radio"]').next().eq(1).should('have.text','Weekly')
+        cy.get('input[type="radio"]').next().eq(2).should('have.text','Monthly')
+        cy.get('input[type="radio"]').next().eq(3).should('have.text','Never')
 
+        cy.get('input[type="radio"]').eq(0).should('not.be.checked')
+        cy.get('input[type="radio"]').eq(1).should('not.be.checked')
+        cy.get('input[type="radio"]').eq(2).should('not.be.checked')
+        cy.get('input[type="radio"]').eq(3).should('not.be.checked')
+        
+        cy.get('input[type="radio"]').eq(0).check().should('be.checked')
+        cy.get('input[type="radio"]').eq(1).check().should('be.checked')
+        cy.get('input[type="radio"]').eq(0).should('not.be.checked')
+
+    })
+
+    it('Dropdown dependencies between 2 dropdowns', () => {
+        cy.get('#country').children().should('have.length', 4)
+        cy.get('#country').find('option').eq(0).should('have.text', '')
+        cy.get('#country').find('option').eq(1).should('have.text', 'Spain')
+        cy.get('#country').find('option').eq(2).should('have.text', 'Estonia')
+        cy.get('#country').find('option').eq(3).should('have.text', 'Austria')
+
+        cy.get('#country').select('Spain')
+        cy.get('#city').select('Madrid')
+        cy.get('#country').select('Estonia')
+        cy.get('#city').select('Tartu')
+        cy.get('#country').select('Austria')
+        cy.get('#city').select('Vienna')
+    })
+
+    it.only('Checkboxes, their content and links', () => {
+        cy.get('input[type="checkbox"]').should('have.length', 2)
+        cy.get('a').should('be.visible')
+            .and('have.attr', 'href', 'cookiePolicy.html')
+            .click()
+        // Check that currently opened URL is correct
+        cy.url().should('contain', '/cookiePolicy.html')
+        // Go back to previous page
+        cy.go('back')
+
+    })
+
+})
 
 /*
 BONUS TASK: add functional tests for registration form 3
